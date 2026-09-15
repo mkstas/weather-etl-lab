@@ -1,0 +1,5 @@
+__pycache__
+
+.env
+weather_report.md
+weather_lab.db

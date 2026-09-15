@@ -1,0 +1,4 @@
+requests
+SQLAlchemy
+python-dotenv
+logging
