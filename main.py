@@ -13,6 +13,7 @@ from geo_locator import get_geodata
 from weather_client import get_weather_forecast, aggregate_forecast
 from exporter import export_to_markdown
 
+
 load_dotenv()
 
 weather_forecoast_api_key = os.environ.get("WEATHER_FORECAST_API_KEY")
@@ -27,8 +28,7 @@ Base.metadata.create_all(engine)
 
 
 def main():
-    geodata = get_geodata()
-    city = geodata["city"]
+    city = get_geodata()
 
     logger.info(f"Automatically determined location: {city}")
 
