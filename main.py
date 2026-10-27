@@ -17,12 +17,13 @@ from exporter import export_to_markdown
 load_dotenv()
 
 weather_forecoast_api_key = os.environ.get("WEATHER_FORECAST_API_KEY")
+sqlite_connection = os.environ.get("SQLITE_CONNECTION")
 
 logging.basicConfig(level=logging.INFO, format="[%(asctime)s] [%(levelname)s]: %(message)s")
 
 logger = logging.getLogger(__name__)
 
-engine = create_engine("sqlite:///weather_lab.db")
+engine = create_engine(sqlite_connection)
 
 Base.metadata.create_all(engine)
 
@@ -61,9 +62,9 @@ def main():
     ]
 
     with Session(engine) as session:
-        stmt = insert(WeatherForecast).values(values)
-        stmt = stmt.on_conflict_do_nothing(index_elements=["city", "forecast_date"])
-        session.execute(stmt)
+        query = insert(WeatherForecast).values(values)
+        query = query.on_conflict_do_nothing(index_elements=["city", "forecast_date"])
+        session.execute(query)
         session.commit()
 
     logging.info(f"Weather forecast for {city} saved")
